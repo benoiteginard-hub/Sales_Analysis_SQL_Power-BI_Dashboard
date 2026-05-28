@@ -1,10 +1,19 @@
-# SQL Sales Analysis Project
+# SQL Sales Analysis Project & Power BI dashboard 
 
-## Overview
+## Overview and Project Update
 
-This project is a SQL-based sales analysis built to demonstrate core Data Analyst skills: data modeling, analytical views, business KPI calculation, product performance analysis, and month-over-month trends.
+This project was initially built as a SQL-only sales analysis project. It has since been extended with a Power BI reporting layer based on the exported SQL analytical views.
 
-The project focuses on SQL only. A Power BI dashboard may be added later using the same outputs.
+Recent improvements include:
+
+* Added a Power BI dashboard with two report pages:
+
+  * Sales Performance Overview
+  * Product Performance Analysis
+* Added a product model-level analytical view to aggregate SKU variants such as size and color into broader commercial product models.
+* Updated CSV outputs with explicit column headers for easier BI import.
+* Added product model ranking, category revenue concentration and bike product range analysis.
+* Added dashboard screenshots and the `.pbix` report file to the repository.
 
 ---
 
@@ -12,10 +21,10 @@ The project focuses on SQL only. A Power BI dashboard may be added later using t
 
 The analysis answers four main questions:
 
-1. How did sales, customers and quantity sold evolve over time between 2011 and 2013??
+1. How did sales, customers and quantity sold evolve over time between 2011 and 2013?
 2. Which products generated the most revenue?
 3. Which products generated the highest margin?
-4. How did product performance evolve month over month, especially for Mountain Bikes?
+4. How did product performance evolve month over month across products and categories?
 
 ---
 
@@ -64,46 +73,102 @@ sql-sales-analysis/
 ├── scripts/
 │   └── product_report.sql
 │
-└── outputs/
-    ├── yearly_sales_summary.csv
-    ├── monthly_sales_summary.csv
-    ├── product_performance_summary.csv
-    └── mountain_bikes_monthly_trends.csv
+├── outputs/
+│   ├── yearly_sales_summary.csv
+│   ├── monthly_sales_summary.csv
+│   ├── product_performance_summary.csv
+│   ├── product_model_performance_summary.csv
+│   └── product_monthly_trends.csv
+│   
+│
+└── powerbi/
+    ├── sales_performance_dashboard.pbix
+    └── screenshots/
+        ├── Sales_Performance_Overview.png
+        └── Product_Performance_Analysis.png
 ``` 
 
 ## Analytical Views
 
-The SQL script creates five reusable analytical views:
+The SQL script creates six reusable analytical views:
 
-| View                                  | Purpose                                           |
-| ------------------------------------- | ------------------------------------------------- |
-| `gold.vw_sales_enriched`              | Central view combining sales and product data     |
-| `gold.vw_sales_yearly_summary`        | Yearly sales, quantity, customers and margin KPIs |
-| `gold.vw_sales_monthly_summary`       | Monthly sales and margin evolution                |
-| `gold.vw_product_performance_summary` | Product ranking by revenue, margin and quantity   |
-| `gold.vw_product_monthly_trend`       | Month-over-month product performance analysis     |
+| View                                        | Purpose                                                              |
+| ------------------------------------------- | -------------------------------------------------------------------- |
+| `gold.vw_sales_enriched`                    | Central view combining sales, customer and product data              |
+| `gold.vw_sales_yearly_summary`              | Yearly sales, quantity, customers and margin KPIs                    |
+| `gold.vw_sales_monthly_summary`             | Monthly sales, customer, quantity and margin evolution               |
+| `gold.vw_product_performance_summary`       | SKU-level product ranking by revenue, margin and quantity            |
+| `gold.vw_product_model_performance_summary` | Product model-level performance, aggregating size and color variants |
+| `gold.vw_product_monthly_trend`             | Month-over-month product performance analysis                        |
 
 ## Outputs
-The final SQL queries are exported as CSV files in the outputs/ folder:
 
-| File                                | Description                               |
-| ----------------------------------- | ----------------------------------------- |
-| `yearly_sales_summary.csv`          | Yearly business performance               |
-| `monthly_sales_summary.csv`         | Monthly revenue and margin evolution      |
-| `product_performance_summary.csv`   | Product-level revenue, margin and ranking |
-| `mountain_bikes_monthly_trends.csv` | Monthly trend analysis for Mountain Bikes |
+The final SQL queries are exported as CSV files in the `outputs/` folder.
 
-These outputs can be used directly for reporting or future dashboard creation.
+| File                                    | Description                                                                  |
+| --------------------------------------- | ---------------------------------------------------------------------------- |
+| `yearly_sales_summary.csv`              | Yearly business performance KPIs                                             |
+| `monthly_sales_summary.csv`             | Monthly revenue, margin, customer and quantity evolution                     |
+| `product_performance_summary.csv`       | SKU-level product revenue, margin, quantity and ranking                      |
+| `product_model_performance_summary.csv` | Product model-level ranking, aggregating SKU variants such as size and color |
+| `product_monthly_trends.csv`            | Monthly product trend analysis with month-over-month indicators              |
+
+
+Each CSV output includes explicit column headers and can be imported directly into Power BI or another BI tool.
+
+## Power BI Dashboard
+
+A Power BI dashboard was created from the exported SQL analytical views to provide a business-oriented reporting layer.
+
+The report contains two pages:
+
+### 1. Sales Performance Overview
+
+This page provides a high-level view of business performance over time, including:
+
+* total revenue
+* total margin
+* margin rate
+* quantity sold
+* monthly revenue and margin trends
+* monthly customer and quantity trends
+* year-based filtering
+* key business insights
+
+### 2. Product Performance Analysis
+
+This page focuses on product and category performance, including:
+
+* revenue vs margin by product model
+* top product models by revenue
+* product model ranking
+* revenue concentration by category
+* bike product range comparison by subcategory
+* business insights on revenue concentration and product portfolio structure
+
+### Dashboard Preview
+
+![Sales Performance Overview](powerbi/screenshots/Sales_Performance_Overview.png)
+
+![Product Performance Analysis](powerbi/screenshots/Product_Performance_Analysis.png)
+
+The Power BI report file is available in the `powerbi/` folder:
+
+```text
+powerbi/sales_performance_dashboard.pbix
+```
+
 
 ## Example Insights
 
 The analysis helps identify:
 
-- yearly and monthly sales evolution
-- top revenue-generating products
-- highest-margin products
-- products with strong month-over-month growth
-- performance trends within the Mountain Bikes subcategory
+- strong revenue growth in 2013 after a weaker 2012
+- revenue and margin concentration in the Bikes category
+- leading product models by revenue and margin
+- differences between SKU-level and product model-level performance
+- how Road Bikes and Mountain Bikes contribute differently to total revenue
+- monthly product performance trends and month-over-month changes
 
 ## Technical Notes
 
@@ -144,12 +209,11 @@ This project shows the ability to:
 - perform month-over-month analysis
 - prepare clean outputs for BI or reporting
 
-## Next Step
+## Possible Future Improvements
 
-The next planned step is to build a Power BI dashboard using the exported SQL outputs, focusing on:
+Possible future improvements include:
 
-- revenue evolution
-- margin analysis
-- product ranking
-- category performance
-- monthly trends
+- connecting Power BI directly to SQL Server instead of CSV exports
+- adding an automated refresh workflow
+- adding a dedicated category-level report page
+- improving the product model grouping logic with a dedicated mapping table

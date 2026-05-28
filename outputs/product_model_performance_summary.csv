@@ -1,0 +1,48 @@
+﻿product_model;category;subcategory;sku_count;total_quantity_sold;total_cost;total_revenue;total_margin;total_margin_rate_percent;average_revenue_per_unit;average_margin_per_unit;revenue_rank;margin_rank;quantity_rank
+Sport-100 Helmet;Accessories;Helmets;3;6200;80600;217000;136400;62.86;35.00;22.00;13;12;1
+Water Bottle - 30 oz.;Accessories;Bottles and Cages;1;4103;8206;20515;12309;60.00;5.00;3.00;37;38;2
+Mountain-200;Bikes;Mountain Bikes;6;3550;4468890;7924612;3455722;43.61;2232.29;973.44;1;1;3
+Patch Kit/8 Patches;Accessories;Tires and Tubes;1;3028;3028;6056;3028;50.00;2.00;1.00;46;47;4
+Mountain Tire Tube;Accessories;Tires and Tubes;1;2927;5854;14635;8781;60.00;5.00;3.00;42;41;5
+Road Tire Tube;Accessories;Tires and Tubes;1;2229;2229;8916;6687;75.00;4.00;3.00;43;42;6
+AWC Logo Cap;Clothing;Caps;1;2107;14749;18963;4214;22.22;9.00;2.00;40;44;7
+Fender Set - Mountain;Accessories;Fenders;1;2027;16216;44594;28378;63.64;22.00;14.00;26;24;8
+Mountain Bottle Cage;Accessories;Bottles and Cages;1;1964;7856;19640;11784;60.00;10.00;6.00;39;39;9
+Road-250;Bikes;Road Bikes;8;1903;2943361;4451191;1507830;33.87;2339.04;792.34;3;3;10
+Road Bottle Cage;Accessories;Bottles and Cages;1;1702;5106;15318;10212;66.67;9.00;6.00;41;40;11
+Long-Sleeve Logo Jersey;Clothing;Jerseys;4;1656;62928;82800;19872;24.00;50.00;12.00;23;31;12
+Road-150;Bikes;Road Bikes;5;1544;3352024;5524432;2172408;39.32;3578.00;1407.00;2;2;13
+Short-Sleeve Classic Jersey;Clothing;Jerseys;4;1543;64806;83322;18516;22.22;54.00;12.00;22;32;14
+Road-750;Bikes;Road Bikes;4;1443;496392;779220;282828;36.30;540.00;196.00;7;7;15
+Touring Tire Tube;Accessories;Tires and Tubes;1;1404;2808;7020;4212;60.00;5.00;3.00;44;45;16
+Road-550-W;Bikes;Road Bikes;5;1390;991070;1513960;522890;34.54;1089.18;376.18;6;6;17
+Half-Finger Gloves;Clothing;Gloves;3;1365;12285;32760;20475;62.50;24.00;15.00;31;30;18
+HL Mountain Tire;Accessories;Tires and Tubes;1;1345;17485;47075;29590;62.86;35.00;22.00;25;23;19
+Touring-1000;Bikes;Touring Bikes;8;1255;1859910;2991920;1132010;37.84;2384.00;902.00;4;4;20
+ML Mountain Tire;Accessories;Tires and Tubes;1;1087;11957;32610;20653;63.33;30.00;19.00;32;29;21
+LL Road Tire;Accessories;Tires and Tubes;1;987;7896;20727;12831;61.90;21.00;13.00;36;37;22
+Women's Mountain Shorts;Clothing;Shorts;3;963;25038;67410;42372;62.86;70.00;44.00;24;22;23
+Road-350-W;Bikes;Road Bikes;4;929;1006107;1580229;574122;36.33;1701.00;618.00;5;5;24
+ML Road Tire;Accessories;Tires and Tubes;1;893;8037;22325;14288;64.00;25.00;16.00;35;35;25
+Touring Tire;Accessories;Tires and Tubes;1;885;9735;25665;15930;62.07;29.00;18.00;34;34;26
+Bike Wash - Dissolver;Accessories;Cleaners;1;870;2610;6960;4350;62.50;8.00;5.00;45;43;27
+Road-650;Bikes;Road Bikes;12;850;413950;643962;230012;35.72;757.60;270.60;8;8;28
+HL Road Tire;Accessories;Tires and Tubes;1;808;9696;26664;16968;63.64;33.00;21.00;33;33;29
+LL Mountain Tire;Accessories;Tires and Tubes;1;805;7245;20125;12880;64.00;25.00;16.00;38;36;30
+Hydration Pack - 70 oz.;Accessories;Hydration Packs;1;710;14910;39050;24140;61.82;55.00;34.00;27;25;31
+Mountain-400-W;Bikes;Mountain Bikes;4;543;228060;417567;189507;45.38;769.00;349.00;10;9;32
+Racing Socks;Clothing;Socks;2;543;1629;4887;3258;66.67;9.00;6.00;47;46;32
+Touring-3000;Bikes;Touring Bikes;10;540;248940;400680;151740;37.87;742.00;281.00;11;11;34
+Classic Vest;Clothing;Vests;3;535;12840;34240;21400;62.50;64.00;40.00;30;28;35
+Mountain-500;Bikes;Mountain Bikes;10;479;144256;264335;120079;45.43;551.85;250.69;12;13;36
+Touring-2000;Bikes;Touring Bikes;4;372;280860;451980;171120;37.86;1215.00;460.00;9;10;37
+Hitch Rack - 4-Bike;Accessories;Bike Racks;1;307;13815;36840;23025;62.50;120.00;75.00;29;27;38
+All-Purpose Bike Stand;Accessories;Bike Stands;1;238;14042;37842;23800;62.89;159.00;100.00;28;26;39
+Mountain-100 Black- 44;Bikes;Mountain Bikes;1;60;113880;202500;88620;43.76;3375.00;1477.00;14;14;40
+Mountain-100 Silver- 38;Bikes;Mountain Bikes;1;57;108984;193800;84816;43.76;3400.00;1488.00;15;15;41
+Mountain-100 Black- 48;Bikes;Mountain Bikes;1;56;106288;189000;82712;43.76;3375.00;1477.00;16;16;42
+Mountain-100 Black- 38;Bikes;Mountain Bikes;1;49;93002;165375;72373;43.76;3375.00;1477.00;17;17;43
+Mountain-100 Silver- 44;Bikes;Mountain Bikes;1;46;87952;156400;68448;43.76;3400.00;1488.00;18;18;44
+Mountain-100 Black- 42;Bikes;Mountain Bikes;1;45;85410;151875;66465;43.76;3375.00;1477.00;19;19;45
+Mountain-100 Silver- 42;Bikes;Mountain Bikes;1;42;80304;142800;62496;43.76;3400.00;1488.00;20;20;46
+Mountain-100 Silver- 48;Bikes;Mountain Bikes;1;36;68832;122400;53568;43.76;3400.00;1488.00;21;21;47

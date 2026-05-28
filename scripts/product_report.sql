@@ -272,20 +272,148 @@ SELECT
 FROM monthly_with_lag;
 GO
 
+
 /*
 ================================================================================
-6. Portfolio analysis queries
+6. Product model performance summary
 ================================================================================
-These final SELECT statements can be used to export CSV outputs for GitHub.
+This view aggregates SKU-level product variants into broader commercial product
+models. Size and color variants are grouped under a shared model name.
+
+Example:
+- Mountain-200 Black- 46
+- Mountain-200 Black- 42
+- Mountain-200 Silver- 38
+
+are grouped as:
+- Mountain-200
+
+This model-level aggregation is more relevant for business reporting and Power BI
+visualization than analyzing each SKU variant separately.
+*/
+
+CREATE OR ALTER VIEW gold.vw_product_model_performance_summary AS
+
+WITH product_model_base AS (
+    SELECT
+        product_key,
+        product_name,
+        category,
+        subcategory,
+        cost,
+        average_price,
+        average_margin_percent,
+        total_quantity_sold,
+        total_cost,
+        total_revenue,
+        total_margin,
+        total_margin_rate_percent,
+
+        CASE
+            WHEN product_name LIKE 'Mountain-200%' THEN 'Mountain-200'
+            WHEN product_name LIKE 'Mountain-400-W%' THEN 'Mountain-400-W'
+            WHEN product_name LIKE 'Mountain-500%' THEN 'Mountain-500'
+
+            WHEN product_name LIKE 'Road-150%' THEN 'Road-150'
+            WHEN product_name LIKE 'Road-250%' THEN 'Road-250'
+            WHEN product_name LIKE 'Road-350-W%' THEN 'Road-350-W'
+            WHEN product_name LIKE 'Road-550-W%' THEN 'Road-550-W'
+            WHEN product_name LIKE 'Road-650%' THEN 'Road-650'
+            WHEN product_name LIKE 'Road-750%' THEN 'Road-750'
+
+            WHEN product_name LIKE 'Touring-1000%' THEN 'Touring-1000'
+            WHEN product_name LIKE 'Touring-2000%' THEN 'Touring-2000'
+            WHEN product_name LIKE 'Touring-3000%' THEN 'Touring-3000'
+
+            WHEN product_name LIKE 'Sport-100 Helmet%' THEN 'Sport-100 Helmet'
+            WHEN product_name LIKE 'Half-Finger Gloves%' THEN 'Half-Finger Gloves'
+            WHEN product_name LIKE 'Full-Finger Gloves%' THEN 'Full-Finger Gloves'
+            WHEN product_name LIKE 'Long-Sleeve Logo Jersey%' THEN 'Long-Sleeve Logo Jersey'
+            WHEN product_name LIKE 'Short-Sleeve Classic Jersey%' THEN 'Short-Sleeve Classic Jersey'
+            WHEN product_name LIKE 'Women''s Mountain Shorts%' THEN 'Women''s Mountain Shorts'
+            WHEN product_name LIKE 'Classic Vest%' THEN 'Classic Vest'
+            WHEN product_name LIKE 'Racing Socks%' THEN 'Racing Socks'
+
+            ELSE product_name
+        END AS product_model
+
+    FROM gold.vw_product_performance_summary
+),
+
+product_model_aggregated AS (
+    SELECT
+        product_model,
+        category,
+        subcategory,
+
+        COUNT(DISTINCT product_key) AS sku_count,
+
+        SUM(total_quantity_sold) AS total_quantity_sold,
+        SUM(total_cost) AS total_cost,
+        SUM(total_revenue) AS total_revenue,
+        SUM(total_margin) AS total_margin,
+
+        CAST(
+            SUM(total_margin) * 100.0 / NULLIF(SUM(total_revenue), 0)
+            AS DECIMAL(10, 2)
+        ) AS total_margin_rate_percent,
+
+        CAST(
+            SUM(total_revenue) * 1.0 / NULLIF(SUM(total_quantity_sold), 0)
+            AS DECIMAL(10, 2)
+        ) AS average_revenue_per_unit,
+
+        CAST(
+            SUM(total_margin) * 1.0 / NULLIF(SUM(total_quantity_sold), 0)
+            AS DECIMAL(10, 2)
+        ) AS average_margin_per_unit
+
+    FROM product_model_base
+    GROUP BY
+        product_model,
+        category,
+        subcategory
+)
+
+SELECT
+    product_model,
+    category,
+    subcategory,
+    sku_count,
+    total_quantity_sold,
+    total_cost,
+    total_revenue,
+    total_margin,
+    total_margin_rate_percent,
+    average_revenue_per_unit,
+    average_margin_per_unit,
+
+    RANK() OVER (ORDER BY total_revenue DESC) AS revenue_rank,
+    RANK() OVER (ORDER BY total_margin DESC) AS margin_rank,
+    RANK() OVER (ORDER BY total_quantity_sold DESC) AS quantity_rank
+
+FROM product_model_aggregated;
+GO
+
+
+/*
+================================================================================
+7. Portfolio export queries
+================================================================================
+These final SELECT statements can be used to export clean CSV outputs for GitHub
+and Power BI.
+
+Recommended exports:
 Recommended exports:
 - outputs/yearly_sales_summary.csv
 - outputs/monthly_sales_summary.csv
 - outputs/product_performance_summary.csv
-- outputs/mountain_bikes_monthly_trends.csv
+- outputs/product_model_performance_summary.csv
+- outputs/product_monthly_trends.csv
 ================================================================================
 */
 
--- 6.1 Global yearly sales performance
+-- 7.1 Global yearly sales performance
 SELECT
     order_year,
     total_sales,
@@ -300,7 +428,7 @@ SELECT
 FROM gold.vw_sales_yearly_summary
 ORDER BY order_year;
 
--- 6.2 Global monthly sales evolution
+-- 7.2 Global monthly sales evolution
 SELECT
     order_month,
     total_sales,
@@ -315,7 +443,7 @@ SELECT
 FROM gold.vw_sales_monthly_summary
 ORDER BY order_month;
 
--- 6.3 Top products by revenue
+-- 7.3 Top products by revenue
 SELECT TOP 20
     product_key,
     product_name,
@@ -331,7 +459,7 @@ SELECT TOP 20
 FROM gold.vw_product_performance_summary
 ORDER BY revenue_rank;
 
--- 6.4 Top products by margin
+-- 7.4 Top products by margin
 SELECT TOP 20
     product_key,
     product_name,
@@ -347,10 +475,13 @@ SELECT TOP 20
 FROM gold.vw_product_performance_summary
 ORDER BY margin_rank;
 
--- 6.5 Mountain Bikes monthly trend
+-- 7.5 Product monthly trends
 SELECT
     order_month,
+    product_key,
     product_name,
+    category,
+    subcategory,
     quantity_sold,
     previous_month_quantity,
     mom_quantity_difference,
@@ -359,13 +490,13 @@ SELECT
     previous_month_revenue,
     mom_revenue_difference,
     mom_revenue_growth_percent,
+    total_margin,
     revenue_rank_in_month,
     quantity_rank_in_month
 FROM gold.vw_product_monthly_trend
-WHERE subcategory = 'Mountain Bikes'
-ORDER BY order_month, quantity_rank_in_month, product_name;
+ORDER BY order_month, revenue_rank_in_month, product_name;
 
--- 6.6 Category-level performance summary
+-- 7.6 Optional category-level performance check
 SELECT
     category,
     subcategory,
@@ -377,3 +508,22 @@ FROM gold.vw_product_performance_summary
 GROUP BY category, subcategory
 ORDER BY total_revenue DESC;
 GO
+
+-- 7.7 Product model performance summary
+SELECT
+    product_model,
+    category,
+    subcategory,
+    sku_count,
+    total_quantity_sold,
+    total_cost,
+    total_revenue,
+    total_margin,
+    total_margin_rate_percent,
+    average_revenue_per_unit,
+    average_margin_per_unit,
+    revenue_rank,
+    margin_rank,
+    quantity_rank
+FROM gold.vw_product_model_performance_summary
+ORDER BY revenue_rank;

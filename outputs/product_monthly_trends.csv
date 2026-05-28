@@ -1,4 +1,5 @@
-﻿2011-01-01;17;Road-150 Red- 48;Bikes;Road Bikes;27;NULL;NULL;NULL;96606;NULL;NULL;NULL;37989;1;1
+﻿order_month;product_key;product_name;category;subcategory;quantity_sold;previous_month_quantity;mom_quantity_difference;mom_quantity_growth_percent;total_revenue;previous_month_revenue;mom_revenue_difference;mom_revenue_growth_percent;total_margin;revenue_rank_in_month;quantity_rank_in_month
+2011-01-01;17;Road-150 Red- 48;Bikes;Road Bikes;27;NULL;NULL;NULL;96606;NULL;NULL;NULL;37989;1;1
 2011-01-01;16;Road-150 Red- 44;Bikes;Road Bikes;22;NULL;NULL;NULL;78716;NULL;NULL;NULL;30954;2;2
 2011-01-01;20;Road-150 Red- 62;Bikes;Road Bikes;22;NULL;NULL;NULL;78716;NULL;NULL;NULL;30954;2;2
 2011-01-01;19;Road-150 Red- 56;Bikes;Road Bikes;17;NULL;NULL;NULL;60826;NULL;NULL;NULL;23919;4;4
